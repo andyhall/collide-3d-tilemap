@@ -57,10 +57,10 @@ module.exports = function(field, tilesize, dimensions, offset) {
       //         to modify the `vec` in-flight.
       // once we're done translate the box to the vec results
 
-      var step = 0
-      for(var i = i_start; !done && i !== i_end; ++step, i += dir) {
+      outer: 
+      for(var i = i_start; i !== i_end; i += dir) {
         if(i < offset[i_axis] || i >= dimensions[i_axis]) continue
-        for(var j = j_start; !done && j !== j_end; ++j) {
+        for(var j = j_start; j !== j_end; ++j) {
           if(j < offset[j_axis] || j >= dimensions[j_axis]) continue
           for(var k = k_start; k !== k_end; ++k) {
             if(k < offset[k_axis] || k >= dimensions[k_axis]) continue
@@ -75,8 +75,7 @@ module.exports = function(field, tilesize, dimensions, offset) {
             edge_vector = edge - leading
 
             if(oncollision(i_axis, tile, coords, dir, edge_vector)) {
-              done = true
-              break
+              break outer
             }
           } 
         }
