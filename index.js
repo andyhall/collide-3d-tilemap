@@ -21,6 +21,10 @@ module.exports = function(field, tilesize, dimensions, offset) {
 
   return collide
 
+  function ceil(n) {
+    return (n===0) ? 0 : Math.ceil(n)
+  }
+  
   function collide(box, vec, oncollision) {
 
     // collide x, then y - if vector has a nonzero component
@@ -37,9 +41,9 @@ module.exports = function(field, tilesize, dimensions, offset) {
         , i_start = Math.floor(leading / tilesize)
         , i_end = (Math.floor((leading + vec[i_axis]) / tilesize)) + dir
         , j_start = Math.floor(box.base[j_axis] / tilesize)
-        , j_end = Math.ceil(box.max[j_axis] / tilesize)
+        , j_end = ceil(box.max[j_axis] / tilesize)
         , k_start = Math.floor(box.base[k_axis] / tilesize) 
-        , k_end = Math.ceil(box.max[k_axis] / tilesize)
+        , k_end = ceil(box.max[k_axis] / tilesize)
         , done = false
         , edge_vector
         , edge
