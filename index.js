@@ -12,7 +12,9 @@ module.exports = function(field, tilesize, dimensions, offset) {
   ]
 
   field = typeof field === 'function' ? field : function(x, y, z) {
-    return this[x + y * dimensions[1] + (z * dimensions[1] * dimensions[2])]
+    var i = x + y * dimensions[1] + (z * dimensions[1] * dimensions[2])
+    if (i<0 || i>=this.length) return undefined
+    return this[i]
   }.bind(field) 
 
   var coords
@@ -59,11 +61,8 @@ module.exports = function(field, tilesize, dimensions, offset) {
 
     outer: 
     for(var i = i_start; i !== i_end; i += dir) {
-      if(i < offset[i_axis] || i >= dimensions[i_axis]) continue
       for(var j = j_start; j !== j_end; ++j) {
-        if(j < offset[j_axis] || j >= dimensions[j_axis]) continue
         for(var k = k_start; k !== k_end; ++k) {
-          if(k < offset[k_axis] || k >= dimensions[k_axis]) continue
           coords[i_axis] = i
           coords[j_axis] = j
           coords[k_axis] = k
