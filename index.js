@@ -67,7 +67,7 @@ module.exports = function(field, tilesize, dimensions, offset) {
           coords[i_axis] = i
           coords[j_axis] = j
           coords[k_axis] = k
-          tile = field.apply(field, coords)
+          tile = field(coords[0], coords[1], coords[2])
 
           if(tile === undefined) continue
 
